@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Similar Movies</title>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        .movie-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: transform 0.2s;
+        }
+        .movie-item img {
+            width: 100%;
+            height: auto;
+        }
+        .movie-item:hover {
+            transform: scale(1.05);
+        }
+        .movie-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Similar Movies for {{ original_movie_title }}</h1>
+    <div>
+    <!-- Add the home icon link -->
+    <a href="/">
+        <i class="fas fa-home"></i> Home
+    </a>
+</div>
+    <div class="movie-grid">
+        {% for movie in similar_movies %}
+            <div class="movie-item">
+                {% if movie['Poster'] %}
+                    <img src="{{ movie['Poster'] }}" alt="{{ movie['Title'] }} Poster">
+                {% else %}
+                    <img src="default_placeholder.jpg" alt="{{ movie['Title'] }} Poster">
+                {% endif %}
+                <div class="movie-title">{{ movie['Title'] }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

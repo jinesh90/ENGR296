@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="./static/css/styles.css">
+    <title>Movies</title>
+</head>
+<body>
+    <h1>Plot Based Movie Recommendation</h1>
+    <div  class="search-div">
+    <form method="post" action="/search">
+        <input type="text" name="search_query" placeholder="Search movies...">
+        <button type="submit">Search</button>
+    </form>
+    </div>
+    <div class="movie-grid">
+        {% for movie in movies %}
+             <a href="{{ url_for('show_similar', imdb_id=movie[3]) }}" class="movie-item">
+            <div class="movie-item">
+                <img src="{{ movie[2] }}" alt="{{ movie[0] }} Poster">
+                <div class="movie-title">{{ movie[0] }}</div>
+            </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

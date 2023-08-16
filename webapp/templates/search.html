@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="./static/css/styles.css">
+</head>
+<body>
+    <h1>Search Results</h1>
+    <div>
+        <!-- Add the home icon link -->
+        <a href="/">
+            <i class="fas fa-home"></i> Home
+        </a>
+    </div>
+    <form method="post" action="/search">
+        <input type="text" name="search_query" placeholder="Search movies...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="movie-grid">
+        {% if search_results %}
+            {% for movie in search_results %}
+                <a href="{{ url_for('show_similar', imdb_id=movie['imdbID']) }}" class="movie-item">
+                    <div class="movie-item">
+                        {% if movie['Poster'] %}
+                            <img src="{{ movie['Poster'] }}" alt="{{ movie['Title'] }} Poster">
+                        {% else %}
+                            <img src="default_placeholder.jpg" alt="{{ movie['Title'] }} Poster">
+                        {% endif %}
+                        <div class="movie-title">{{ movie['Title'] }}</div>
+                    </div>
+                </a>
+            {% endfor %}
+        {% else %}
+            <p>No search results found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
